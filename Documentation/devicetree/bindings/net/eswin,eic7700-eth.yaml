@@ -7,7 +7,8 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
 title: Eswin EIC7700 SOC Eth Controller
 
 maintainers:
-  - weishangjuan <weishangjuan@eswincomputing.com>
+  - Shangjuan Wei <weishangjuan@eswincomputing.com>
+  - Shuang Liang <liangshuang@eswincomputing.com>
 
 description: |
   The eth controller registers are part of the syscrg block on
@@ -22,9 +23,6 @@ properties:
     items:
       - description: Base address and size
       - description: Extension region (optional)
-
-  numa-node-id:
-    $ref: /schemas/types.yaml#/definitions/uint32
 
   interrupt-names:
     const: macirq
@@ -87,7 +85,7 @@ properties:
     properties:
       snps,lpi_en:
         type: boolean
-        # $ref: /schemas/types.yaml#/definitions/flag
+        $ref: /schemas/types.yaml#/definitions/flag
         description: Low Power Interface enable flag (true/false)
 
 required:
@@ -115,28 +113,28 @@ additionalProperties: false
 
 examples:
   - |
-    d0_gmac0: ethernet@50400000 {
+    gmac0: ethernet@50400000 {
         compatible = "eswin,eic7700-qos-eth";
         reg = <0x0 0x50400000 0x0 0x10000>;
-        interrupt-parent = <&plic0>;
+        interrupt-parent = <&plic>;
         interrupt-names = "macirq";
         interrupts = <61>;
         phy-mode = "rgmii";
         numa-node-id = <0>;
         id = <0>;
         status = "disabled";
-        clocks = <&d0_clock 550>,
-                 <&d0_clock 551>,
-                 <&d0_clock 552>;
+        clocks = <&clock 550>,
+                 <&clock 551>,
+                 <&clock 552>;
         clock-names = "app", "stmmaceth", "tx";
-        resets = <&d0_reset 0x07 (1 << 26)>;
+        resets = <&reset 0x07 (1 << 26)>;
         reset-names = "ethrst";
         dma-noncoherent;
-        eswin,hsp_sp_csr = <&d0_hsp_sp_csr 0x1030 0x100 0x108>;
-        eswin,syscrg_csr = <&d0_sys_crg 0x148 0x14c>;
+        eswin,hsp_sp_csr = <&hsp_sp_csr 0x1030 0x100 0x108>;
+        eswin,syscrg_csr = <&sys_crg 0x148 0x14c>;
         eswin,dly_hsp_reg = <0x114 0x118 0x11c>;
-        snps,axi-config = <&d0_stmmac_axi_setup>;
-        d0_stmmac_axi_setup: stmmac-axi-config {
+        snps,axi-config = <&stmmac_axi_setup>;
+        stmmac_axi_setup: stmmac-axi-config {
             snps,blen = <0 0 0 0 16 8 4>;
             snps,rd_osr_lmt = <2>;
             snps,wr_osr_lmt = <2>;

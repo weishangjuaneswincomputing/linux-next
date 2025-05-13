@@ -70,7 +70,7 @@ config DWMAC_EIC7700
 	tristate "Support for Eswin eic7700 ethernet driver"
 	select CRC32
 	select MII
-	depends on OF && HAS_DMA && ARCH_ESWIN
+	depends on OF && HAS_DMA && ARCH_ESWIN || COMPILE_TEST
 	help
 	  This driver supports the Eswin EIC7700 Ethernet controller,
 	  which integrates Synopsys DesignWare QoS features. It enables
