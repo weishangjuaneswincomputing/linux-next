@@ -92,7 +92,6 @@ properties:
 required:
   - compatible
   - reg
-  - numa-node-id
   - interrupt-names
   - interrupts
   - phy-mode
@@ -121,7 +120,6 @@ examples:
         interrupt-names = "macirq";
         interrupts = <61>;
         phy-mode = "rgmii";
-        numa-node-id = <0>;
         id = <0>;
         status = "disabled";
         clocks = <&clock 550>,
